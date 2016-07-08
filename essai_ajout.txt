@@ -1,0 +1,2 @@
+Un simple ajout pour tester git
+Ce fichier n'existe pas dans la version 1.02<F12>
