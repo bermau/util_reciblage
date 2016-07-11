@@ -1,6 +1,8 @@
 #!/bin/env python3
-# Le doctests de ce fichier sont génés par les messages de la sortie
-# standard
+# file : lib_ctrl_graph.py
+
+# Les doctests de ce fichier sont génés par les messages de la sortie
+# standard. J'ai supprimé les messages sur la sortie standard.
 # v2 : OK sur les 3 tests.
 # modif mineure pour GIT
 
