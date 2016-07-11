@@ -2,6 +2,7 @@
 # Le doctests de ce fichier sont génés par les messages de la sortie
 # standard
 # v2 : OK sur les 3 tests.
+# modif mineure pour GIT
 
 """Représentation de la moyenne +/- 2 ou 3 SD
 
