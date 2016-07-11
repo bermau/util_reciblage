@@ -7,6 +7,7 @@ Licence : GLP3 ou plus
 
 
 Object : Un programme python pour le reciblage des controles de qualité interne. 
+Contient aussi qualit.py, un utilitaire exploitant pylint.
 
 Situation en juillet 2016 : programme embryonnaire, mais mis en partage sur github afin de tester git.
 
