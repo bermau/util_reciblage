@@ -6,7 +6,7 @@
 # v2 : OK sur les 3 tests.
 # modif mineure pour GIT
 
-"""Représentation de la moyenne +/- 2 ou 3 SD
+r"""Représentation de la moyenne +/- 2 limites (en général, 2 ou 3 SD)
 
 Dans l'exemple ci dessous, je lance plusieurs lignes de doctest.
 
@@ -92,9 +92,10 @@ class GrapheCtrl():
         # print("y_min, y_max",(self.y_min, self.y_max))
         # print()
         # return None
-    def affiche(self):
 
+    def affiche(self):
         """Placer les commentaires, puis créer le fichier et l'affiche"""
+
         # print(self.labels)
         y_range = self.y_max - self.y_min
         if self.label_position == 'down':
@@ -125,12 +126,14 @@ class GrapheCtrl():
 
 def _test():
     "self-test routine"
+
     # load the doctest module, part of the std Python API
     import doctest
     # invoke the testmod function that will parse
     # the whole content of the file, looking for
     # docstrings and run all tests they contain
     doctest.testmod(verbose=False)
+
 if __name__ == '__main__':
     _test()
     G = GrapheCtrl(output_filename='exemple.png', label_pos='up')
