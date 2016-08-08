@@ -116,7 +116,6 @@ def trt_principal():
 
         OUTPUT_FILE = get_default_report_name(input_file)
         print("Fichier de sortie : {}".format(OUTPUT_FILE))
-        # readakey("ok?")
         
         exec_pylint(input_file)
         note = get_note()

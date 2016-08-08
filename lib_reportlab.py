@@ -6,7 +6,7 @@ https://www.reportlab.com/docs/reportlab-userguide.pdf
 Le but est de créer un pdf avec un graphe en haut et une
 explication textuelle en bas.
 Le texte est très basique. Je suis obligé de le filtrer
-avec une fonction très limitée pour éliimner les \n et les \t.
+avec une fonction (très limitée) pour éliminer les \n et les \t.
 """
 
 from reportlab.pdfgen import canvas
@@ -47,8 +47,9 @@ class MonRapportReportLab():
 
     def inserer_graphe(self, filename):
 
-        # attention les données sont en pixels
-        self.can.drawImage(filename, 20,400,width=500, height=503,preserveAspectRatio=True)
+        # attention : données en pixels
+        self.can.drawImage(filename, 20, 400, width=500, height=503,
+                           preserveAspectRatio=True)
 
     def clore(self):
         self.can.showPage()
@@ -60,7 +61,7 @@ if __name__=='__main__':
     doctest.testmod()
     
     rapport=MonRapportReportLab("exemple_lib_myreportlab.pdf")
-    rapport.inserer_graphe(r'graphe2.png')
+    rapport.inserer_graphe(r'exemple.png')
     
     t=[]
     t.append("ceci est une \n ligne initialement avec des tabulations.")

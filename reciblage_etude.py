@@ -104,10 +104,10 @@ groupe les valeurs du groupe de pair"""
 
 def create_pdf():
     """Crée un pdf contenant le graphe élaboré par self.illustrate()"""
-
+    import lib_reportlab
     filename = "rapport.pdf"
     print("\nCréation du pdf : {}".format(filename))
-    import lib_reportlab
+
     rapport = lib_reportlab.MonRapportReportLab(filename)
     rapport.inserer_graphe('output.png')
     rapport.inserer_texte(ex.get_recap())
