@@ -25,7 +25,7 @@ data = [
 
 import tkinter as tk
 import menus
-
+import essai_lib_labelled_entry
 
 class Graphe(tk.Frame):
     """Graphe central avec surtout le graphique ; 
@@ -48,6 +48,8 @@ class SidePanel(tk.Frame):
         self.plotBut.grid(sticky=tk.W)
         self.clearButton = tk.Button(self.frame2, text="Clear")
         self.clearButton.grid(sticky=tk.W)
+
+        self.titre
                
 class ViewType1(tk.Frame):
     
@@ -88,13 +90,14 @@ class ViewType1(tk.Frame):
 
 class Controller():
     def __init__(self):
-        self.tkroot=tk.Tk()
+        self.tkroot = tk.Tk()
         # self.model=encours.Encours(filename=DEFAULT_INPUT+"fi59",encoding="latin1")
-        self.view=ViewType1(self.tkroot)
+        self.view = ViewType1(self.tkroot)
         # ici il faut définir les menus.
         self.view.sidepanel.plotBut.bind("<Button>",self.aff_version)
-        self.view.leMenu.toolMenu.entryconfig(1, command=self.downloadFi58)
-        # self.view.leMenu.toolMenu.entryconfig(2, state=tk.DISABLED)
+        # Dans la ligne ci-dessous, on indique la podition du menu.
+        self.view.leMenu.tool_menu.entryconfig(1, command=self.downloadFi58)
+        self.view.leMenu.tool_menu.entryconfig(2, state=tk.DISABLED)
 
     def aff_version(self,event):
         self.view.afficherVersion() # idem mais en mode graphique.

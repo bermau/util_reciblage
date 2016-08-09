@@ -52,7 +52,7 @@ class MonRapportReportLab():
                            preserveAspectRatio=True)
 
     def clore(self):
-        self.can.showPage()
+        # self.can.showPage()
         self.can.save()
 
 
@@ -60,7 +60,7 @@ if __name__=='__main__':
     import doctest
     doctest.testmod()
     
-    rapport=MonRapportReportLab("exemple_lib_myreportlab.pdf")
+    rapport = MonRapportReportLab("exemple_lib_myreportlab.pdf")
     rapport.inserer_graphe(r'exemple.png')
     
     t=[]

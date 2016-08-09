@@ -5,8 +5,9 @@ import lib_ctrl_graph
 
 class EvalReciblage():
     """Evaluer les conséquences d'un reciblage de contrôle"""
-    version="Programme : " +__file__+" v:1.1 du 11/06/2016" 
-    def __init__(self,m_theo, cv_theo, m_labo,cv_labo,m_groupe, cv_groupe,titre='Titre'):
+    version = "Programme : " + __file__ + " v:1.1 du 11/06/2016" 
+    def __init__(self, m_theo, cv_theo, m_labo, cv_labo,
+                 m_groupe, cv_groupe, titre='Titre'):
         """Initialisation des valeurs.
 
 theo désigne les valeurs cibles,
@@ -72,41 +73,68 @@ groupe les valeurs du groupe de pair"""
                        " et "+ str(round(self.high_groupe,3))])
         return output
 
-    def illustrate(self):
-        """Affiche un graphique de synthèse"""
+    def illustrate(self, file='output.png'):
+        """Affiche et sauve un graphique de synthèse."""
+        
         import lib_ctrl_graph
-        g=lib_ctrl_graph.GrapheCtrl(self.titre,output_filename='output.png')
-        g.placer(self.m_theo, self.low_theo,self.high_theo,1, style= 'b',label='Théo')
-        g.placer(self.m_labo, self.low_labo,self.high_labo,2, style= 'b',label='Labo')
-        g.placer(self.m_groupe, self.low_groupe,self.high_groupe,3, style= 'b',label='Groupe')
-        g.placer(self.m_recal, self.low_recal,self.high_recal, 4, style= 'b', label='Reciblage')
-        # x_min,x_max,y_min,y_max=lib_ctrl_graph.plt.axis()
-        # lib_ctrl_graph.plt.axis([x_min, x_max, y_min * 0.95, y_max])
+        g=lib_ctrl_graph.GrapheCtrl(self.titre, file)
+        g.placer(self.m_theo, self.low_theo,
+                 self.high_theo, 1, style= 'b',label='Théo')
+        g.placer(self.m_labo, self.low_labo,
+                 self.high_labo, 2, style= 'b',label='Labo')
+        g.placer(self.m_groupe, self.low_groupe,
+                 self.high_groupe,3, style= 'b',label='Groupe')
+        g.placer(self.m_recal, self.low_recal,
+                 self.high_recal, 4, style= 'b', label='Reciblage')
+        x_min, x_max, y_min, y_max = lib_ctrl_graph.plt.axis()
+        lib_ctrl_graph.plt.axis([x_min, x_max, y_min * 0.95, y_max])
+      
         g.affiche()
         
-    def create_pdf(self):
+def create_pdf_double_page(page, title="Reciblage"):
         filename="rapport.pdf"
         print("création du pdf : {}".format(filename))
         import lib_reportlab
+        # Ouvre un rapport en pdf.
         rapport=lib_reportlab.MonRapportReportLab(filename)
-        rapport.inserer_graphe('output.png')
-        rapport.inserer_texte(nous.get_recap())
-        rapport.clore()
 
+        for (txt, img) in  pages:
+            rapport.inserer_graphe(img)
+            rapport.inserer_texte(txt.get_recap())
+            rapport.can.showPage()
+        rapport.clore()  
+        
 if __name__=='__main__':
     
-    nous=EvalReciblage(m_theo=5.24,
-                       cv_theo=8,
-                       m_labo=4.62,
-                       cv_labo=5.2,
-                       m_groupe=4.83,
-                       cv_groupe=5.66,
-                       titre="Amica niveau 1"
+    reciblage1 = EvalReciblage(titre="ALAT niveau 1 09/08/2016",
+                       m_theo=46.7,
+                       cv_theo=3.5,
+                       m_labo=45.95,
+                       cv_labo=1.485,
+                       m_groupe=46.085,
+                       cv_groupe=2.41,
                        )
-    for line in nous.get_recap():
+    
+    for line in reciblage1.get_recap():
         print(line)
-    nous.illustrate()
-    nous.create_pdf()
+    reciblage1.illustrate(file='reciblage1.png')
+
+
+    reciblage2 = EvalReciblage(titre="ALAT niveau 2 09/08/2016",
+                       m_theo=119.8,
+                       cv_theo=3.3,
+                       m_labo=116,
+                       cv_labo=2.119,
+                       m_groupe=117.41,
+                       cv_groupe=2.37,
+                       )
+    for line in reciblage2.get_recap():
+        print(line)    
+    reciblage2.illustrate(file='reciblage2.png')
+
+    pages = [ (reciblage1, 'reciblage1.png'), (reciblage2, 'reciblage2.png') ]
+    
+    create_pdf_double_page(pages, title="Reciblage"  )
     
 
     
