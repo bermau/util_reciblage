@@ -1,7 +1,9 @@
-version 1.3
+﻿version 1.3
 
 VERSIONS : 
 
-1.2 : pdf � double page
+1.2 : pdf à double page
 
-1.3 : pdf � N pages
+1.3 : pdf à N pages
+
+1.4 : amélioration de la gestion des titres

@@ -2,10 +2,12 @@
 # Evaluer les conséquences d'un reciblage de contrôle de qualité.
 
 import lib_ctrl_graph
+import os
+import datetime
 
 class EvalReciblage():
     """Evaluer les conséquences d'un reciblage de contrôle"""
-    version = "Programme : " + __file__ + " v:1.2 du 31/08/2016" 
+    version = "Programme : " + os.path.basename(__file__) + " v:1.4 du 15/09/2016" 
     def __init__(self, m_theo, cv_theo, m_labo, cv_labo,
                  m_groupe, cv_groupe, titre='Titre'):
         """Initialisation des valeurs.
@@ -91,28 +93,35 @@ groupe les valeurs du groupe de pair"""
       
         g.affiche()
         
-def create_pdf_double_page(page, title="Reciblage"):
+    
+def create_pdf_N_pages(pages, title="Reciblage"):
     filename="rapport.pdf"
     print("création du pdf : {}".format(filename))
     import lib_reportlab
-    # Ouvre un rapport en pdf.
-    rapport=lib_reportlab.MonRapportReportLab(filename)
-    for (txt, img) in  pages:
+    nb_pages = len(pages)
+    rapport = lib_reportlab.MonRapportReportLab(filename)
+    for  i in range(0, nb_pages):
+        print("page : ", i)
+        (txt, img) =  pages[i]
         rapport.inserer_graphe(img)
         rapport.inserer_texte(txt.get_recap())
-        rapport.can.showPage()
-    rapport.clore()
+        if (nb_pages > 1) and (i < nb_pages - 1) :
+            print("chg page")
+            rapport.can.showPage()
+    rapport.clore() 
     
         
 if __name__=='__main__':
+    analyte = "Hépatite C"
+    date = datetime.date.today().strftime("%d/%m/%Y")
     
-    reciblage1 = EvalReciblage(titre="BNP niveau 1 13/08/2016",
-                       m_theo=154.5,
-                       cv_theo=4.2,
-                       m_labo=148.2,
-                       cv_labo=2.65,
-                       m_groupe=148.7,
-                       cv_groupe=4.21,
+    reciblage1 = EvalReciblage(titre= analyte +" niveau 1 " + date,
+                       m_theo=0.0697,
+                       cv_theo=16,
+                       m_labo=0.0588,
+                       cv_labo=2.6,
+                       m_groupe=0.057,
+                       cv_groupe=6.33,
                        )
     
     for line in reciblage1.get_recap():
@@ -120,13 +129,13 @@ if __name__=='__main__':
     reciblage1.illustrate(file='reciblage1.png')
 
 
-    reciblage2 = EvalReciblage(titre="BNP niveau 2 13/08/2016",
-                       m_theo=4781,
-                       cv_theo=4,
-                       m_labo=4767,
-                       cv_labo=2.498,
-                       m_groupe=4733,
-                       cv_groupe=3.63,
+    reciblage2 = EvalReciblage(titre= analyte +" niveau 2 "+ date, 
+                       m_theo=3.74,
+                       cv_theo=7,
+                       m_labo=3.12,
+                       cv_labo=1.87,
+                       m_groupe=3.22,
+                       cv_groupe=6.22,
                        )
     for line in reciblage2.get_recap():
         print(line)    
@@ -134,7 +143,7 @@ if __name__=='__main__':
 
     pages = [ (reciblage1, 'reciblage1.png'), (reciblage2, 'reciblage2.png') ]
     
-    create_pdf_double_page(pages, title="Reciblage"  )
+    create_pdf_N_pages(pages, title="Reciblage"  )
     
 
     
