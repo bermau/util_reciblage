@@ -7,3 +7,5 @@ VERSIONS :
 1.3 : pdf à N pages
 
 1.4 : amélioration de la gestion des titres
+
+1.5 : création de répertoire de sortie (output) et temportaire (tempo)

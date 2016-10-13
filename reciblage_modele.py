@@ -7,7 +7,7 @@ import datetime
 
 class EvalReciblage():
     """Evaluer les conséquences d'un reciblage de contrôle"""
-    version = "Programme : " + os.path.basename(__file__) + " v:1.4 du 15/09/2016" 
+    version = "Programme : " + os.path.basename(__file__) + " v:1.5 du 13/10/2016" 
     def __init__(self, m_theo, cv_theo, m_labo, cv_labo,
                  m_groupe, cv_groupe, titre='Titre'):
         """Initialisation des valeurs.
@@ -94,8 +94,8 @@ groupe les valeurs du groupe de pair"""
         g.affiche()
         
     
-def create_pdf_N_pages(pages, title="Reciblage"):
-    filename="rapport.pdf"
+def create_pdf_N_pages(pages, title="Reciblage", filename="rapport.pdf"):
+    
     print("création du pdf : {}".format(filename))
     import lib_reportlab
     nb_pages = len(pages)
@@ -112,38 +112,42 @@ def create_pdf_N_pages(pages, title="Reciblage"):
     
         
 if __name__=='__main__':
-    analyte = "Hépatite C"
+    analyte = "ANALYTE"
+    
+    TEMPO = "tempo/" # nom du répertoire temporaire et de sortie
+    OUTPUT = "output/"
     date = datetime.date.today().strftime("%d/%m/%Y")
     
     reciblage1 = EvalReciblage(titre= analyte +" niveau 1 " + date,
-                       m_theo=0.0697,
-                       cv_theo=16,
-                       m_labo=0.0588,
-                       cv_labo=2.6,
-                       m_groupe=0.057,
-                       cv_groupe=6.33,
+                       m_theo=86.85,
+                       cv_theo=4,
+                       m_labo=85.42,
+                       cv_labo=2.45,
+                       m_groupe=86.750,
+                       cv_groupe=2.27,
                        )
     
     for line in reciblage1.get_recap():
         print(line)
-    reciblage1.illustrate(file='reciblage1.png')
+    reciblage1.illustrate(file=TEMPO+'reciblage1.png')
 
 
     reciblage2 = EvalReciblage(titre= analyte +" niveau 2 "+ date, 
-                       m_theo=3.74,
-                       cv_theo=7,
-                       m_labo=3.12,
-                       cv_labo=1.87,
-                       m_groupe=3.22,
-                       cv_groupe=6.22,
+                       m_theo=342.7,
+                       cv_theo=2.1,
+                       m_labo=334.6,
+                       cv_labo=1.38,
+                       m_groupe=340.668,
+                       cv_groupe=2.01,
                        )
     for line in reciblage2.get_recap():
         print(line)    
-    reciblage2.illustrate(file='reciblage2.png')
+    reciblage2.illustrate(file=TEMPO+'reciblage2.png')
 
-    pages = [ (reciblage1, 'reciblage1.png'), (reciblage2, 'reciblage2.png') ]
-    
-    create_pdf_N_pages(pages, title="Reciblage"  )
+    pages = [ (reciblage1, TEMPO+'reciblage1.png'),
+              (reciblage2, TEMPO+'reciblage2.png') ]
+    filename=OUTPUT+"rapport_"+analyte+ ".pdf"
+    create_pdf_N_pages(pages, title="Reciblage" , filename=filename)
     
 
     
