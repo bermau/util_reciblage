@@ -61,10 +61,10 @@ if __name__=='__main__':
     doctest.testmod()
     
     rapport = MonRapportReportLab("exemple_lib_myreportlab.pdf")
-    rapport.inserer_graphe(r'exemple.png')
+    rapport.inserer_graphe(r'example.png')
     
     t=[]
-    t.append("ceci est une \n ligne initialement avec des tabulations.")
+    t.append("ceci est une \n ligne, initialement avec des tabulations.")
     t.append("une \n autre avec un retour ligne")
     t.append("encore une autre.")
 
